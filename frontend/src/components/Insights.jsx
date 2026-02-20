@@ -1,39 +1,56 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { API } from "../config";
 
-function Insights() {
+function Insights(){
 
-const [insight, setInsight] = useState(null);
+const [insight,setInsight]=useState(null);
 
-useEffect(() => {
+const [loading,setLoading]=useState(true);
 
-axios.get("https://savra-backend.onrender.com/api/activity/insights")
+const [error,setError]=useState(false);
 
-.then(res => setInsight(res.data));
 
-}, []);
 
-if (!insight) return <p>Loading insights...</p>;
+useEffect(()=>{
 
-return (
+axios.get(`${API}/insights`)
 
-<div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-6 rounded-xl shadow-lg mt-6">
+.then(res=>{
 
-<h2 className="text-xl font-bold mb-2">
+setInsight(res.data);
 
-🤖 AI Insights
+setLoading(false);
 
-</h2>
+})
 
-<p>
+.catch(err=>{
 
-🏆 Top Teacher: {insight.topTeacher._id}
+console.log(err);
 
-</p>
+setError(true);
 
-<p>
+setLoading(false);
 
-⚠ Least Active: {insight.leastTeacher._id}
+});
+
+},[]);
+
+
+
+
+// Loading UI
+
+if(loading)
+
+return(
+
+<div className="bg-white p-5 rounded-xl shadow">
+
+<p className="animate-pulse text-gray-500">
+
+🤖 Generating AI insights...
 
 </p>
 
@@ -41,6 +58,129 @@ return (
 
 );
 
+
+
+
+// Error UI
+
+if(error)
+
+return(
+
+<div className="bg-red-50 p-5 rounded-xl shadow">
+
+<p className="text-red-500">
+
+Server waking up... please wait
+
+</p>
+
+</div>
+
+);
+
+
+
+
+
+
+return(
+
+<motion.div
+
+initial={{ opacity:0, y:20 }}
+
+animate={{ opacity:1, y:0 }}
+
+transition={{ duration:0.5 }}
+
+className="
+
+bg-gradient-to-r
+
+from-indigo-500
+
+via-purple-500
+
+to-pink-500
+
+text-white
+
+p-6
+
+rounded-xl
+
+shadow-lg
+
+mt-6
+
+"
+
+>
+
+
+
+
+<h2 className="text-xl font-bold mb-3">
+
+🤖 AI Insights
+
+</h2>
+
+
+
+
+<div className="space-y-2">
+
+
+
+
+<p>
+
+🏆 Top Teacher:
+
+<span className="font-bold ml-2">
+
+{insight.topTeacher._id}
+
+</span>
+
+</p>
+
+
+
+
+<p>
+
+⚠ Least Active:
+
+<span className="font-bold ml-2">
+
+{insight.leastTeacher._id}
+
+</span>
+
+</p>
+
+
+
+
+<p className="text-sm opacity-90 mt-2">
+
+📊 {insight.message}
+
+</p>
+
+
+
+
+</div>
+
+</motion.div>
+
+);
+
 }
+
 
 export default Insights;
