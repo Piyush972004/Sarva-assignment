@@ -25,7 +25,7 @@ d => d.activity_type === "Assessment"
 
 useEffect(()=>{
 
-axios.get("http://localhost:5000/api/activity/summary")
+axios.get("https://savra-backend.onrender.com/api/activity/summary")
 
 .then(res=>setTeachers(res.data));
 
@@ -36,7 +36,7 @@ const handleChange=(name)=>{
 
 axios.get(
 
-"http://localhost:5000/api/activity/teacher/"+name
+"https://savra-backend.onrender.com/api/activity/teacher/"+name
 
 )
 

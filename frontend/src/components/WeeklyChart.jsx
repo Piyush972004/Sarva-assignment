@@ -43,7 +43,7 @@ const [data,setData]=useState([]);
 
 useEffect(()=>{
 
-axios.get("http://localhost:5000/api/activity/weekly")
+axios.get("https://savra-backend.onrender.com/api/activity/weekly")
 
 .then(res=>setData(res.data));
 

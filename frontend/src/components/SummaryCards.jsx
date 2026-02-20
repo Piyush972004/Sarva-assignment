@@ -18,7 +18,7 @@ const [data,setData]=useState([]);
 
 useEffect(()=>{
 
-axios.get("http://localhost:5000/api/activity/summary")
+axios.get("https://savra-backend.onrender.com/api/activity/summary")
 
 .then(res=>setData(res.data));
 

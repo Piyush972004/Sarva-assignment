@@ -7,7 +7,7 @@ const [insight, setInsight] = useState(null);
 
 useEffect(() => {
 
-axios.get("http://localhost:5000/api/activity/insights")
+axios.get("https://savra-backend.onrender.com/api/activity/insights")
 
 .then(res => setInsight(res.data));
 
