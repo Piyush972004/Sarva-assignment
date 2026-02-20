@@ -19,26 +19,22 @@ app.use("/api/activity", activityRoutes);
 
 
 mongoose.connect(process.env.MONGO_URI)
-
 .then(()=>console.log("Database Connected"))
-
 .catch(()=>console.log("Error connecting DB"));
 
 
-app.listen(5000, ()=>{
+/* VERY IMPORTANT */
+const PORT = process.env.PORT || 5000;
 
-console.log("Server running on port 5000");
-
+app.listen(PORT, ()=>{
+console.log(`Server running on port ${PORT}`);
 });
 
-app.use((err,req,res,next)=>{
 
+app.use((err,req,res,next)=>{
 console.error(err);
 
 res.status(500).json({
-
 message:"Server Error"
-
 });
-
 });
