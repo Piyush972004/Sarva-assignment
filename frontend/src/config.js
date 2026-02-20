@@ -1,2 +1,2 @@
 export const API =
-"https://savra-backend.onrender.com/api/activity";
+"https://sarva-backend.onrender.com/api/activity";
